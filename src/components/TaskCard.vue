@@ -16,7 +16,7 @@
           {{ title }}
         </p>
         <b>Task Deadline:</b>
-        <time datetime="2016-1-1">{{ normalizeDeadline(deadline) }}</time>
+        <time :datetime="deadline">{{ normalizeDeadline(deadline) }}</time>
       </div>
     </div>
     <footer class="card-footer">

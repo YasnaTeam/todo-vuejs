@@ -5,8 +5,7 @@
       <div class="column is-three-fifths is-offset-one-fifth">
         <p style="margin-bottom: 20px;">
           <button class="button is-danger" @click="flushTasks()">
-            Remove All
-            <!--<font-awesome-icon icon="times"/>-->
+            <font-awesome-icon icon="trash-alt"/>
           </button>
         </p>
         <form @submit.prevent="createNewTask()">
