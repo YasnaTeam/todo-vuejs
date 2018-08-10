@@ -103,6 +103,12 @@
       },
       loadTasks(){
         let tasks = localStorage.getItem('tasks');
+
+        if (!tasks){
+          this.tasks = [];
+          return;
+        }
+        
         this.tasks = (JSON.parse(tasks))? JSON.parse(tasks): [];
 
       }
