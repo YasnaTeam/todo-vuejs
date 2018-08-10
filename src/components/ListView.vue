@@ -12,7 +12,7 @@
         </div>
       </div>
     </section>
-
+    <n-quote />
     <br>
     <br>
     <br>
@@ -24,10 +24,12 @@
 
 <script>
   import List from './List';
+  import Quote from './Quote';
 
   export default {
     components:{
-      "n-list": List
+      "n-list": List,
+      "n-quote": Quote
     }
   }
 </script>
