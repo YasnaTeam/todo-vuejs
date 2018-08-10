@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import vueResource from 'vue-resource';
 import App from './App.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -12,6 +13,9 @@ library.add(fas);
 library.add(far);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+// Register Vue-Resource
+Vue.use(vueResource);
 
 new Vue({
   el: '#app',
