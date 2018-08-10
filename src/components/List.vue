@@ -55,6 +55,7 @@
               :title="task.title"
               :deadline="task.deadline"
               :completed="task.completed"
+              @delete = "deleteTask($event)"
             ></n-task-card>
 
           </li>
@@ -90,8 +91,7 @@
       }
     },
     created(){
-      //this.loadTasks();
-      // console.log(this.tasks);
+
 
     },
     watch: {
@@ -126,6 +126,11 @@
         // Reset Fields
         this.newTaskTitle = "";
         this.newTaskDeadline ="";
+      },
+
+      deleteTask(id){
+        let index = this.tasks.findIndex(task=>(task.id === id));
+        this.tasks.splice(index,1);
       },
 
       /**

@@ -20,7 +20,19 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a :href=" '#'+ id " class="card-footer-item">View</a>
+      <a :href=" '#'+ id " class="card-footer-item">
+        <span class="icon">
+          <font-awesome-icon icon="eye" />
+        </span>
+        View
+      </a>
+
+      <p class="card-footer-item" style="color: #ff3860" @click="$emit('delete',id)">
+        <span class="icon">
+          <font-awesome-icon icon="trash" />
+        </span>
+        Delete
+      </p>
     </footer>
   </div>
 </template>
