@@ -1,7 +1,23 @@
 <template>
     <div id="app">
       <n-nav></n-nav>
-      <router-view></router-view>
+      <div class="list-body">
+        <section class="hero is-primary">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                Todo App
+              </h1>
+              <h2 class="subtitle">
+                List View
+              </h2>
+            </div>
+          </div>
+        </section>
+
+        <router-view></router-view>
+
+      </div>
     </div>
 </template>
 
