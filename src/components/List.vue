@@ -6,8 +6,8 @@
 
         <form @submit.prevent="createNewTask()">
 
-          <div class="field is-horizontal has-addons">
-            <div class="control is-expanded">
+          <div class="field">
+            <div class="control">
 
               <input class="input is-medium"
                      type="text"
@@ -15,6 +15,19 @@
                      v-model="newTaskTitle"
               >
             </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <date-picker v-model="newTaskDeadline"
+                           class="input is-medium datepicker"
+                           :color="'#00d1b2'"
+                           type="datetime"
+              ></date-picker>
+            </div>
+          </div>
+
+          <div class="field">
             <div class="control">
               <button class="button is-medium is-primary" type="submit">Create Task</button>
             </div>
@@ -46,53 +59,75 @@
 
 <script>
   import TaskCard from './TaskCard.vue';
-  // let randomId = require('../functions/randomId');
   import { randomId } from '../functions/randomId';
+  import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 
 	export default {
 		name: "List",
     components: {
-		  "n-task-card": TaskCard
+		  "n-task-card": TaskCard,
+      "date-picker": VuePersianDatetimePicker
     },
     data(){
 		  return{
-		    tasks: [
-          {
-            id: "bala1",
-            title: "Task 1"
-          },
-          {
-            id: "bala2",
-            title: "Task 2",
-            deadline: "2018-08-10"
-          },
-          {
-            id: "bala3",
-            title: "Task 2"
-          },
-        ],
-        newTaskTitle: ""
+		    tasks: [],
+        newTaskTitle: "",
+        newTaskDeadline: ""
       }
     },
-    // created(){
-    //   console.log(typeof randomId);
-    // },
+    created(){
+      this.loadTasks();
+    },
     methods:{
       createNewTask(){
         if(!this.newTaskTitle.length){
           return;
         }
+        // Add new task card
         this.tasks.unshift({
           title: this.newTaskTitle,
+          deadline: this.newTaskDeadline,
           id: randomId()
         });
+
+        // Save New Tasks Array
+        this.saveTasks();
+
+        // Reset Fields
         this.newTaskTitle = "";
+        this.newTaskDeadline ="";
+      },
+      saveTasks(){
+        let str = JSON.stringify(this.tasks);
+        localStorage.setItem('tasks', str);
+      },
+      loadTasks(){
+        let tasks = localStorage.getItem('tasks');
+        this.tasks = (JSON.parse(tasks))? JSON.parse(tasks): [];
+
       }
     }
 
 	}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+  .datepicker{
+    padding: 0;
+
+    & > span{
+
+      height: 100%;
+      border: 0;
+
+      input{
+        border: 0;
+
+      }
+    }
+  }
+
+
 
 </style>
