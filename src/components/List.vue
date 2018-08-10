@@ -3,7 +3,12 @@
     <!--New Task-->
     <div class="columns">
       <div class="column is-three-fifths is-offset-one-fifth">
-
+        <p style="margin-bottom: 20px;">
+          <button class="button is-danger" @click="flushTasks()">
+            Remove All
+            <!--<font-awesome-icon icon="times"/>-->
+          </button>
+        </p>
         <form @submit.prevent="createNewTask()">
 
           <div class="field">
@@ -45,7 +50,14 @@
       <div class="column is-three-fifths is-offset-one-fifth">
         <ul>
           <li v-for="task in tasks">
-            <n-task-card :id="task.id" :title="task.title" :deadline="task.deadline"></n-task-card>
+
+            <n-task-card
+              :id="task.id"
+              :title="task.title"
+              :deadline="task.deadline"
+              :completed="task.completed"
+            ></n-task-card>
+
           </li>
         </ul>
       </div>
@@ -79,15 +91,20 @@
       this.loadTasks();
     },
     methods:{
+		  /**
+       * Creates new task card
+       * */
       createNewTask(){
         if(!this.newTaskTitle.length){
           return;
         }
+
         // Add new task card
         this.tasks.unshift({
           title: this.newTaskTitle,
           deadline: this.newTaskDeadline,
-          id: randomId()
+          id: randomId(),
+          completed: false,
         });
 
         // Save New Tasks Array
@@ -97,10 +114,19 @@
         this.newTaskTitle = "";
         this.newTaskDeadline ="";
       },
+
+      /**
+       * Save Tasks list to localStorage
+       */
       saveTasks(){
         let str = JSON.stringify(this.tasks);
         localStorage.setItem('tasks', str);
       },
+
+
+      /**
+       * Loads Tasks from localStorage
+       */
       loadTasks(){
         let tasks = localStorage.getItem('tasks');
 
@@ -108,9 +134,17 @@
           this.tasks = [];
           return;
         }
-        
-        this.tasks = (JSON.parse(tasks))? JSON.parse(tasks): [];
 
+        this.tasks = JSON.parse(tasks);
+      },
+
+
+      /**
+       * flush all tasks from storage
+       */
+      flushTasks(){
+        localStorage.tasks = "";
+        this.loadTasks();
       }
     }
 

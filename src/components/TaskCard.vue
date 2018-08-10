@@ -7,7 +7,6 @@
         </span>
       <span class="icon">
         <font-awesome-icon icon="coffee" />
-        <i class="fas fa-angle-down" aria-hidden="true"></i>
       </span>
       </div>
     </header>
@@ -17,7 +16,7 @@
           {{ title }}
         </p>
         <b>Task Deadline:</b>
-        <time datetime="2016-1-1">{{ deadline }}</time>
+        <time datetime="2016-1-1">{{ normalizeDeadline(deadline) }}</time>
       </div>
     </div>
     <footer class="card-footer">
@@ -36,10 +35,14 @@
       },
       deadline: {
 		    type: String,
-        default: "No Deadline specified."
+        default: "Do Not Specified"
       },
       id: {
 		    type: String,
+        required: true
+      },
+      completed: {
+		    type: Boolean,
         required: true
       }
     },
@@ -48,6 +51,12 @@
 
 
       }
+    },
+    created(){
+
+    },
+    methods:{
+      normalizeDeadline: (date)=> (!date.length)? "Deadline in not specified" : date
     }
 	}
 </script>
