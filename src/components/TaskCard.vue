@@ -11,7 +11,7 @@
         <font-awesome-icon v-if="completed" :icon="['far', 'check-square']" />
         <font-awesome-icon v-else :icon="['far','square']" />
       </span>
-        
+
       </div>
     </header>
     <div class="card-content">
@@ -24,12 +24,14 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a :href=" '#'+ id " class="card-footer-item">
-        <span class="icon">
-          <font-awesome-icon icon="eye" />
-        </span>
-        View
-      </a>
+      <p class="card-footer-item">
+        <router-link :to="'/task/'+ id">
+            <span class="icon">
+              <font-awesome-icon icon="eye" />
+            </span>
+            View
+        </router-link>
+      </p>
 
       <a href="#" class="card-footer-item" style="color: #ff3860" @click.prevent="$emit('delete',id)">
         <span class="icon">

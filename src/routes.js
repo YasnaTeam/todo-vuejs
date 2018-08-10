@@ -4,6 +4,6 @@ import SingleView from './components/SingleView.vue';
 export const routes = [
 
   {path: '', component: ListView},
-  {path: '/task', component: SingleView}
+  {path: '/task/:id', component: SingleView}
 
 ];
