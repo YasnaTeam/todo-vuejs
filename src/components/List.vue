@@ -69,9 +69,12 @@
 </template>
 
 <script>
+  import LocalStorage from '../classes/LocalStorage';
   import TaskCard from './TaskCard.vue';
   import { randomId } from '../functions/randomId';
   import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+
+  let todoStorage = new LocalStorage('todo-tasks');
 
 	export default {
 		name: "List",
@@ -81,13 +84,24 @@
     },
     data(){
 		  return{
-		    tasks: [],
+		    tasks: todoStorage.fetch(),
         newTaskTitle: "",
         newTaskDeadline: ""
       }
     },
     created(){
-      this.loadTasks();
+      //this.loadTasks();
+      // console.log(this.tasks);
+
+    },
+    watch: {
+      tasks: {
+        handler (tasks) {
+          todoStorage.save(tasks)
+        },
+        deep: true
+      }
+
     },
     methods:{
 		  /**
@@ -107,7 +121,7 @@
         });
 
         // Save New Tasks Array
-        this.saveTasks();
+        todoStorage.save(this.tasks);
 
         // Reset Fields
         this.newTaskTitle = "";
@@ -115,35 +129,10 @@
       },
 
       /**
-       * Save Tasks list to localStorage
-       */
-      saveTasks(){
-        let str = JSON.stringify(this.tasks);
-        localStorage.setItem('tasks', str);
-      },
-
-
-      /**
-       * Loads Tasks from localStorage
-       */
-      loadTasks(){
-        let tasks = localStorage.getItem('tasks');
-
-        if (!tasks){
-          this.tasks = [];
-          return;
-        }
-
-        this.tasks = JSON.parse(tasks);
-      },
-
-
-      /**
        * flush all tasks from storage
        */
       flushTasks(){
-        localStorage.tasks = "";
-        this.loadTasks();
+        this.tasks = [];
       }
     }
 
