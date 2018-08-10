@@ -56,6 +56,7 @@
               :deadline="task.deadline"
               :completed="task.completed"
               @delete = "deleteTask($event)"
+              @toggleStatus="toggleStatus($event)"
             ></n-task-card>
 
           </li>
@@ -131,6 +132,14 @@
       deleteTask(id){
         let index = this.tasks.findIndex(task=>(task.id === id));
         this.tasks.splice(index,1);
+      },
+
+      toggleStatus([isComplete, id]){
+
+        let task = this.tasks.find(task=>(task.id === id));
+
+        task.completed = isComplete;
+
       },
 
       /**

@@ -5,9 +5,13 @@
         <span>
           Status:
         </span>
-      <span class="icon">
-        <font-awesome-icon icon="coffee" />
+      <span class="icon" style="font-size: 20px"
+            @click="$emit('toggleStatus',[!completed, id])">
+
+        <font-awesome-icon v-if="completed" :icon="['far', 'check-square']" />
+        <font-awesome-icon v-else :icon="['far','square']" />
       </span>
+        
       </div>
     </header>
     <div class="card-content">
@@ -27,12 +31,12 @@
         View
       </a>
 
-      <p class="card-footer-item" style="color: #ff3860" @click="$emit('delete',id)">
+      <a href="#" class="card-footer-item" style="color: #ff3860" @click.prevent="$emit('delete',id)">
         <span class="icon">
           <font-awesome-icon icon="trash" />
         </span>
         Delete
-      </p>
+      </a>
     </footer>
   </div>
 </template>
