@@ -34,6 +34,11 @@
       // GET /someUrl
       this.$http.get(quoteEndpoint).then(response => {
         // success callback
+
+        if(response.body.failure === 1){
+          return false;
+        }
+
         let content = response.body.contents.quotes[0].quote;
         let person = response.body.contents.quotes[0].author;
         this.quote = content;
