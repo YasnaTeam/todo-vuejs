@@ -131,7 +131,10 @@
 
       deleteTask(id){
         let index = this.tasks.findIndex(task=>(task.id === id));
-        this.tasks.splice(index,1);
+        if(index >= 0){
+          this.tasks.splice(index,1);
+
+        }
       },
 
       toggleStatus([isComplete, id]){
