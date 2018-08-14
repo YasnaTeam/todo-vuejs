@@ -64,6 +64,8 @@
 
       deleteTask(){
         LocalStorage.removeTask(this.pageId);
+        // Redirect to Home
+        this.$router.push({name: "home"})
       },
 
       toggleStatus(){
