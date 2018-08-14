@@ -33,26 +33,24 @@
 </template>
 
 <script>
-  import LocalStrorage from '../classes/LocalStorage';
+  import LocalStorage from '../classes/LocalStorage';
 
-  let todoStorage = new LocalStrorage('todo-tasks');
 
 	export default {
 		name: "SingleView",
     data(){
 		  return{
 		    pageId: this.$route.params.id,
-        tasks: todoStorage.fetch(),
-        task: {}
+        task: {},
       }
     },
     created(){
-		  this.task = this.findTask(this.pageId);
+      this.task = LocalStorage.fetchTask(this.pageId);
     },
     watch: {
-      tasks: {
-        handler (tasks) {
-          todoStorage.save(tasks)
+      task: {
+        handler (task) {
+          LocalStorage.save(task)
         },
         deep: true
       }
@@ -65,10 +63,7 @@
       normalizeDeadline: (date)=> (!date.length)? "Deadline in not specified" : date,
 
       deleteTask(){
-        let index = this.tasks.findIndex(task=>(task.id === this.task.id));
-        console.log(index);
-        this.tasks.splice(index,1);
-        // this.$router.push('home');
+        LocalStorage.removeTask(this.pageId);
       },
 
       toggleStatus(){
