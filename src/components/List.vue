@@ -76,7 +76,6 @@
   import { randomId } from '../functions/randomId';
   import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 
-  let todoStorage = new LocalStorage('todo-tasks');
 
 	export default {
 		name: "List",
@@ -86,7 +85,7 @@
     },
     data(){
 		  return{
-		    tasks: todoStorage.fetch(),
+		    tasks: LocalStorage.fetchAll(),
         newTaskTitle: "",
         newTaskDeadline: ""
       }
@@ -98,7 +97,7 @@
     watch: {
       tasks: {
         handler (tasks) {
-          todoStorage.save(tasks)
+          tasks.forEach(task => LocalStorage.save(task))
         },
         deep: true
       }
@@ -122,7 +121,7 @@
         });
 
         // Save New Tasks Array
-        todoStorage.save(this.tasks);
+//        todoStorage.save(this.tasks);
 
         // Reset Fields
         this.newTaskTitle = "";
@@ -130,11 +129,13 @@
       },
 
       deleteTask(id){
-        let index = this.tasks.findIndex(task=>(task.id === id));
-        if(index >= 0){
-          this.tasks.splice(index,1);
 
-        }
+        let index = this.tasks.findIndex(task=>(task.id === id));
+
+        this.tasks.splice(index,1);
+
+        LocalStorage.removeTask(id);
+
       },
 
       toggleStatus([isComplete, id]){
