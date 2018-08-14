@@ -9,7 +9,7 @@
                 Todo App
               </h1>
               <h2 class="subtitle">
-                List View
+                Vue.js
               </h2>
             </div>
           </div>

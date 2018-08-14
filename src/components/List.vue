@@ -131,9 +131,11 @@
       deleteTask(id){
 
         let index = this.tasks.findIndex(task=>(task.id === id));
+
         this.tasks.splice(index,1);
 
         LocalStorage.removeTask(id);
+
       },
 
       toggleStatus([isComplete, id]){

@@ -3,7 +3,7 @@ import SingleView from './components/SingleView.vue';
 
 export const routes = [
 
-  {path: '', component: ListView},
+  {path: '', component: ListView, name: 'home'},
   {path: '/task/:id', component: SingleView}
 
 ];
