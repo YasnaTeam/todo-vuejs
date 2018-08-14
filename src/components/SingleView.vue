@@ -58,18 +58,22 @@
         <button class="delete" @click="deleteTask()"></button>
       </div>
     </article>
+
+    <v-gif :title="task.title" />
   </div>
 </template>
 
 <script>
   import LocalStorage from '../classes/LocalStorage';
-  import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+  import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
+  import Gif from './Gif.vue';
 
 
 	export default {
 		name: "SingleView",
     components: {
-      "date-picker": VuePersianDatetimePicker
+      "date-picker": VuePersianDatetimePicker,
+      "v-gif": Gif
     },
     data(){
 		  return{
