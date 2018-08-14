@@ -9,17 +9,46 @@
       </figure>
       <div class="media-content">
         <div class="content">
-          <p>
-            <small>Deadline: </small> <small>{{ normalizeDeadline(task.deadline) }}</small>
+          <div>
+            <small>Deadline: </small>
+            <!-- Deadline date -->
+            <small v-if="!editable">{{ normalizeDeadline(task.deadline) }}</small>
+              <div class="field" v-if="editable">
+                <div class="control">
+                  <date-picker v-model="newTaskDeadline"
+                               class="input is-medium datepicker"
+                               :color="'#00d1b2'"
+                               type="datetime"
+                  ></date-picker>
+                </div>
+              </div>
+            <!-- END! Deadline date -->
             <br>
-            {{ task.title }}
-           </p>
+
+            <!-- Task Title -->
+            <strong v-if="!editable">
+              {{ task.title }}
+            </strong>
+            <input class="input is-medium"
+                   type="text"
+                   placeholder="Type your task title..."
+                   v-model="newTaskTitle"
+                   v-if="editable"
+            >
+            <!-- END! Task Title -->
+           </div>
         </div>
         <nav class="level is-mobile">
           <div class="level-left">
             <a class="level-item">
-              <button class="button is-info">
+              <button class="button is-info" v-if="!editable" @click="editable = true">
                 Edit
+              </button>
+              <button class="button is-success" v-if="editable" @click="saveNewTaskDetail()">
+                save
+              </button>
+              <button class="button" v-if="editable" @click="resetInputs()">
+                cancel
               </button>
             </a>
           </div>
@@ -34,18 +63,26 @@
 
 <script>
   import LocalStorage from '../classes/LocalStorage';
+  import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 
 
 	export default {
 		name: "SingleView",
+    components: {
+      "date-picker": VuePersianDatetimePicker
+    },
     data(){
 		  return{
 		    pageId: this.$route.params.id,
         task: {},
+        newTaskDeadline: "",
+        newTaskTitle: "",
+        editable: false
       }
     },
     created(){
       this.task = LocalStorage.fetchTask(this.pageId);
+      this.resetInputs();
     },
     watch: {
       task: {
@@ -57,9 +94,6 @@
 
     },
     methods:{
-		  findTask(id){
-		    return this.tasks.find(task => task.id === id);
-      },
       normalizeDeadline: (date)=> (!date.length)? "Deadline in not specified" : date,
 
       deleteTask(){
@@ -69,10 +103,20 @@
       },
 
       toggleStatus(){
-
         this.task.completed = !this.task.completed;
-
       },
+
+      saveNewTaskDetail(){
+        this.task.title = this.newTaskTitle;
+        this.task.deadline = this.newTaskDeadline;
+        this.editable = false;
+      },
+
+      resetInputs(){
+        this.newTaskDeadline = this.task.deadline;
+        this.newTaskTitle = this.task.title;
+        this.editable = false;
+      }
     }
 	}
 </script>
