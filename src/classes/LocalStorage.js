@@ -1,20 +1,13 @@
 class LocalStorage {
 
-  constructor() {
-
-    localStorage.setItem('tasks', '[]');
-
-  }
-
-
-
 
   /**
    * Loads Items from localStorage
    */
-   fetchAll() {
+   static fetchAll() {
     let tasks = [];
     let tasksIdArray = this.fetchTasksIdArray();
+    //console.log(tasksIdArray);
     tasksIdArray.forEach(id => tasks.push(this.fetchTask(id)));
     return tasks;
   }
@@ -25,7 +18,7 @@ class LocalStorage {
    * @param id
    * @returns {object}
    */
-  fetchTask(id){
+  static fetchTask(id){
     return JSON.parse(localStorage.getItem('task_'+id));
   }
 
@@ -35,8 +28,15 @@ class LocalStorage {
    * gets array of all tasks ids
    * @returns {array}
    */
-  fetchTasksIdArray(){
-    return JSON.parse(localStorage.getItem('tasks'))
+  static fetchTasksIdArray(){
+    let fetchedData = JSON.parse(localStorage.getItem('tasks'));
+
+    if(!fetchedData){
+      localStorage.setItem('tasks', "[]");
+      return [];
+    }
+
+    return fetchedData;
   }
 
 
@@ -44,7 +44,7 @@ class LocalStorage {
   /**
    * Saves Items in localStorage
    */
-  save(task) {
+  static save(task) {
     let task_id = 'task_' + task.id;
 
     localStorage.setItem(task_id, JSON.stringify(task));
@@ -55,31 +55,36 @@ class LocalStorage {
   /**
    * Remove Task
    */
-  removeTask(){
+  static removeTask(id){
     let task_id = 'task_'+ id;
     localStorage.removeItem(task_id);
-    this.removeTaskIndex();
+    this.removeTaskIndex(id);
   }
 
 
   /**
    * Update tasks index list
    */
-  updateTasksIndex(id) {
+  static updateTasksIndex(id) {
     let tasks = this.fetchTasksIdArray();
     if (tasks.indexOf(id) < 0) {
-      let newTasks = tasks.push(id);
-      localStorage.setItem('tasks', JSON.stringify(newTasks));
+      tasks.push(id);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
     }
   }
 
 
-  removeTaskIndex(id){
+  /**
+   * removes task id from index list
+   * @param id
+   */
+  static removeTaskIndex(id){
     let tasks = this.fetchTasksIdArray();
     let index = tasks.indexOf(id);
+
     if (index >= 0) {
-      let newTasks = tasks.splice(index, 1);
-      localStorage.setItem('tasks', JSON.stringify(newTasks));
+      tasks.splice(index, 1);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
     }
   }
 }

@@ -76,7 +76,6 @@
   import { randomId } from '../functions/randomId';
   import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 
-  //let todoStorage = new LocalStorage('todo-tasks');
 
 	export default {
 		name: "List",
@@ -130,8 +129,11 @@
       },
 
       deleteTask(id){
+
         let index = this.tasks.findIndex(task=>(task.id === id));
         this.tasks.splice(index,1);
+
+        LocalStorage.removeTask(id);
       },
 
       toggleStatus([isComplete, id]){
