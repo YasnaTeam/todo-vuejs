@@ -3,11 +3,11 @@
     <!--New Task-->
     <div class="columns">
       <div class="column is-three-fifths is-offset-one-fifth">
-        <p style="margin-bottom: 20px;">
+        <!--<p style="margin-bottom: 20px;">
           <button class="button is-danger" @click="flushTasks()">
             <font-awesome-icon icon="trash-alt"/>
           </button>
-        </p>
+        </p>-->
         <form @submit.prevent="createNewTask()">
 
           <div class="field">
@@ -146,12 +146,12 @@
 
       },
 
-      /**
-       * flush all tasks from storage
-       */
-      flushTasks(){
-        this.tasks = [];
-      }
+      // /**
+      //  * flush all tasks from storage
+      //  */
+      // flushTasks(){
+      //   this.tasks = [];
+      // }
     }
 
 	}
