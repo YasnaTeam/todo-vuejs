@@ -3,7 +3,7 @@
   <nav class="navbar has-background-light" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <router-link to="/" class="navbar-item">
-        <img src="../assets/logo.png" alt="Vue Todo App">
+        <img src="dist/logo.png" alt="Vue Todo App">
       </router-link>
     </div>
   </nav>
