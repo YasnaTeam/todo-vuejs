@@ -22,9 +22,21 @@
           </div>
 
           <div class="field">
-            <div class="control">
+            <div class="control has-icons-left">
+              <input
+                type="text"
+                class="input is-medium"
+                v-model="newTaskDeadline"
+                id="my-custom-editable-input"
+                placeholder="Pick a time..."
+              >
+
+              <span class="icon is-left">
+                <font-awesome-icon icon="calendar-alt" />
+              </span>
+
               <date-picker v-model="newTaskDeadline"
-                           class="input is-medium datepicker"
+                           element="my-custom-editable-input"
                            :color="'#00d1b2'"
                            type="datetime"
               ></date-picker>
