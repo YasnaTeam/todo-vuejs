@@ -14,7 +14,7 @@
     props: ["title"],
     data(){
 		  return {
-        giphyEndPoint: "http://api.giphy.com/v1/gifs/search",
+        giphyEndPoint: "https://api.giphy.com/v1/gifs/search",
         api_key: "a3lmjLH8vU23dN2pKTsM2RG6LXOvbtQF",
         q: this.title,
         limit: 1,
