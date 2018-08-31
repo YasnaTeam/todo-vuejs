@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  let quoteEndpoint = "http://quotes.rest/qod.json?category=inspire";
+  let quoteEndpoint = "https://quotes.rest/qod.json?category=inspire";
 
 	export default {
 		name: "Quote",
